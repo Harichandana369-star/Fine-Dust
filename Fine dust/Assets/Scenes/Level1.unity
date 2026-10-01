@@ -678,6 +678,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ground
       objectReference: {fileID: 0}
+    - target: {fileID: 1428399873220876259, guid: fb0648e83d75bd94797262e0267347be, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 6201866051360691802, guid: fb0648e83d75bd94797262e0267347be, type: 3}
       propertyPath: m_LocalScale.x
       value: 4
@@ -739,6 +743,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 102484156141902573, guid: ed371ffcd8699104698982374ffc546f, type: 3}
+      propertyPath: jumpForce
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 102484156141902573, guid: ed371ffcd8699104698982374ffc546f, type: 3}
+      propertyPath: isGrounded
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 102484156141902573, guid: ed371ffcd8699104698982374ffc546f, type: 3}
       propertyPath: walkErosionRate
       value: 1
