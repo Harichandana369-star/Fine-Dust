@@ -129,15 +129,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7954775939514218934, guid: 8fb375e44a8c2904ab7e873d097c2055, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.6143227
+      value: 1.2033807
       objectReference: {fileID: 0}
     - target: {fileID: 7954775939514218934, guid: 8fb375e44a8c2904ab7e873d097c2055, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.0831497
+      value: 1.5528631
       objectReference: {fileID: 0}
     - target: {fileID: 7954775939514218934, guid: 8fb375e44a8c2904ab7e873d097c2055, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7515628
+      value: 0.560245
       objectReference: {fileID: 0}
     - target: {fileID: 7954775939514218934, guid: 8fb375e44a8c2904ab7e873d097c2055, type: 3}
       propertyPath: m_LocalPosition.x
@@ -599,7 +599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8959736261587197257, guid: 7b5d12534e180bc43a16750f90f9f269, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.68
+      value: 1.7100002
       objectReference: {fileID: 0}
     - target: {fileID: 8959736261587197257, guid: 7b5d12534e180bc43a16750f90f9f269, type: 3}
       propertyPath: m_LocalPosition.z
@@ -841,7 +841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6201866051360691802, guid: 2afed29cbf1de69409f80e5582dd461a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.31
+      value: 1.34
       objectReference: {fileID: 0}
     - target: {fileID: 6201866051360691802, guid: 2afed29cbf1de69409f80e5582dd461a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1048,7 +1048,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChalkDrawer
   linePrefab: {fileID: 256722416244610919, guid: bdc6e023b967e7e4c86a97290f1f1034, type: 3}
   player: {fileID: 374192682}
-  drawMassCostPerSecond: 50
+  drawMassCostPerSecond: 400
   minPointDistance: 0.1
 --- !u!1001 &1958185676
 PrefabInstance:
