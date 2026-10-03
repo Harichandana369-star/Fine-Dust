@@ -8,12 +8,17 @@ public class MathEnemy : MonoBehaviour
     public EnemyType enemyType = EnemyType.Minus;
 
     [Header("Mass Impact Tweakables")]
-    public float minusMassDamage = 25f; // Eats player mass (makes player small/fast)
-    public float plusMassGain = 35f;    // Overloads player with mass (makes player huge/heavy)
+    public float minusMassDamage = 25f;
+    public float plusMassGain = 35f;
+    public float variableMultiplier = 0.5f;
 
     [Header("Patrol Movement")]
     public float moveSpeed = 2f;
     public float patrolDistance = 3f;
+
+    [Header("Cooldown Settings")]
+    public float triggerCooldown = 0.5f;
+    private float nextTriggerTime = 0f;
 
     private Vector3 startPos;
     private int direction = 1;
@@ -25,7 +30,6 @@ public class MathEnemy : MonoBehaviour
 
     void Update()
     {
-        // Patrol back and forth along the floor
         transform.Translate(Vector3.right * direction * moveSpeed * Time.deltaTime);
 
         if (Mathf.Abs(transform.position.x - startPos.x) >= patrolDistance)
@@ -34,30 +38,47 @@ public class MathEnemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        ChalkPlayer player = collision.GetComponent<ChalkPlayer>();
+        HandlePlayerTouch(collision.gameObject);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        HandlePlayerTouch(collision.gameObject);
+    }
+
+    private void HandlePlayerTouch(GameObject touchedObject)
+    {
+        if (Time.time < nextTriggerTime) return;
+
+        ChalkPlayer player = touchedObject.GetComponent<ChalkPlayer>();
         if (player != null)
         {
+            nextTriggerTime = Time.time + triggerCooldown;
+
             switch (enemyType)
             {
                 case EnemyType.Minus:
-                    // Shrinks player mass
                     player.ConsumeMass(minusMassDamage);
                     break;
 
                 case EnemyType.Plus:
-                    // Expands player mass (makes player huge and heavy)
                     player.GainMass(plusMassGain);
                     break;
 
                 case EnemyType.Variable:
-                    // Variable hazard randomly inflates or deflates player mass on touch
-                    float randomMassChange = Random.Range(-30f, 30f);
-                    if (randomMassChange < 0)
-                        player.ConsumeMass(Mathf.Abs(randomMassChange));
+                    float previousMass = player.currentMass;
+                    float newMass = player.currentMass * variableMultiplier;
+
+                    if (newMass < previousMass)
+                    {
+                        player.ConsumeMass(previousMass - newMass);
+                    }
                     else
-                        player.GainMass(randomMassChange);
+                    {
+                        player.GainMass(newMass - previousMass);
+                    }
                     break;
             }
         }
