@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9181747865543626523}
   - component: {fileID: 7023038097380591710}
   - component: {fileID: 102484156141902573}
+  - component: {fileID: 1311624934588824960}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -193,6 +194,19 @@ MonoBehaviour:
   currentMass: 100
   autoDecayRate: 2
   isGrounded: 0
+--- !u!114 &1311624934588824960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5531172953529428795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1a1319a2f037aa42977e96538f75a2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerRespawn
+  killZoneTag: KillZone
 --- !u!1 &6840692356894294991
 GameObject:
   m_ObjectHideFlags: 0
