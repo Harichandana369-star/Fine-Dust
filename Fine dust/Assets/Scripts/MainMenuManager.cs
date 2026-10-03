@@ -29,8 +29,8 @@ public class MainMenuManager : MonoBehaviour
             AudioManager.Instance.PlaySFX(AudioManager.Instance.jumpSFX);
         }
 
-        // Loads the first playable level (Index 1 in Build Settings)
-        SceneManager.LoadScene(1);
+        // Loads Level1 by exact scene name
+        SceneManager.LoadScene("Level1");
     }
 
     public void OpenInfo()
