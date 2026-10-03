@@ -3,17 +3,17 @@ using UnityEngine;
 public class ChalkPlayer : MonoBehaviour
 {
     [Header("Movement & Physics")]
-    public float lightSpeed = 8f;
-    public float heavySpeed = 3f;
-    public float jumpForce = 12f;
+    public float lightSpeed = 9f;
+    public float heavySpeed = 4f;
+    public float jumpForce = 6f;
     public Transform groundCheck;
     public LayerMask groundLayer;
 
     [Header("Mass Mechanics")]
     public float maxMass = 100f;
-    public float minMass = 10f;
+    public float minMass = 5f;
     public float currentMass = 100f;
-    public float autoDecayRate = 2f; // Chalk slowly wears away over time!
+    public float autoDecayRate = 2f;
 
     [Header("Grounding State")]
     public bool isGrounded;
@@ -38,19 +38,16 @@ public class ChalkPlayer : MonoBehaviour
 
     void Update()
     {
-        // 1. Check Ground Status
         if (groundCheck != null)
         {
             isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.3f, groundLayer);
         }
 
-        // 2. PASSIVE CHALK DECAY (Shrinks over time / moving / idling)
         if (currentMass > minMass)
         {
             ConsumeMass(autoDecayRate * Time.deltaTime);
         }
 
-        // 3. Movement & Jump
         float moveInput = Input.GetAxisRaw("Horizontal");
         float massRatio = Mathf.Clamp01(currentMass / maxMass);
         float currentSpeed = Mathf.Lerp(lightSpeed, heavySpeed, massRatio);
@@ -69,9 +66,13 @@ public class ChalkPlayer : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
 #endif
             isGrounded = false;
+
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.jumpSFX);
+            }
         }
 
-        // 4. Respawn check
         if (currentMass <= minMass)
         {
             PlayerRespawn respawn = GetComponent<PlayerRespawn>();
@@ -95,11 +96,9 @@ public class ChalkPlayer : MonoBehaviour
     {
         float massRatio = Mathf.Clamp01((currentMass - minMass) / (maxMass - minMass));
 
-        // Scale shrinks smoothly
         float scaleFactor = Mathf.Clamp(currentMass / 100f, 0.4f, 1.5f);
         transform.localScale = initialScale * scaleFactor;
 
-        // Color shifts from white to red/transparent as mass drains
         if (spriteRenderer != null)
         {
             spriteRenderer.color = Color.Lerp(lowMassColor, fullMassColor, massRatio);

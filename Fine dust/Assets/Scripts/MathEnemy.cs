@@ -61,10 +61,14 @@ public class MathEnemy : MonoBehaviour
             {
                 case EnemyType.Minus:
                     player.ConsumeMass(minusMassDamage);
+                    if (AudioManager.Instance != null)
+                        AudioManager.Instance.PlaySFX(AudioManager.Instance.minusEnemySFX);
                     break;
 
                 case EnemyType.Plus:
                     player.GainMass(plusMassGain);
+                    if (AudioManager.Instance != null)
+                        AudioManager.Instance.PlaySFX(AudioManager.Instance.plusEnemySFX);
                     break;
 
                 case EnemyType.Variable:
@@ -79,6 +83,9 @@ public class MathEnemy : MonoBehaviour
                     {
                         player.GainMass(newMass - previousMass);
                     }
+
+                    if (AudioManager.Instance != null)
+                        AudioManager.Instance.PlaySFX(AudioManager.Instance.variableEnemySFX);
                     break;
             }
         }

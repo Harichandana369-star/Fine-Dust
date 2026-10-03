@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Required for Scene reloading
+using UnityEngine.SceneManagement;
 
 public class PlayerRespawn : MonoBehaviour
 {
@@ -24,7 +24,11 @@ public class PlayerRespawn : MonoBehaviour
 
     public void Respawn()
     {
-        // Reloads the currently active level, resetting ALL scene objects and variables to their original state
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.respawnSFX);
+        }
+
         Scene activeScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(activeScene.buildIndex);
     }

@@ -8,12 +8,12 @@ public class ChalkDrawer : MonoBehaviour
     public ChalkPlayer player;
 
     [Header("Collision & Obstacles")]
-    public LayerMask obstacleLayers;            // Assign Ground/Platform layers in Inspector
+    public LayerMask obstacleLayers;
 
     [Header("Proximity & Limits")]
-    public float maxDrawRadiusFromPlayer = 3.0f; // Distance limit around player stick
-    public float maxTotalLineLength = 25f;       // Total length limit allowed on board
-    public int maxLineSegments = 5;              // Maximum number of lines allowed
+    public float maxDrawRadiusFromPlayer = 3.0f;
+    public float maxTotalLineLength = 25f;
+    public int maxLineSegments = 5;
 
     [Header("Drawing Settings")]
     public float drawMassCostPerSecond = 18f;
@@ -45,7 +45,6 @@ public class ChalkDrawer : MonoBehaviour
 
         float distanceToPlayer = player != null ? Vector2.Distance(player.transform.position, cursorPoint) : 999f;
 
-        // 1. Begin drawing on mouse click
         if (canDraw && (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)))
         {
             if (distanceToPlayer <= maxDrawRadiusFromPlayer && activeLines.Count < maxLineSegments && currentTotalLength < maxTotalLineLength)
@@ -54,7 +53,6 @@ public class ChalkDrawer : MonoBehaviour
             }
         }
 
-        // 2. Add points while dragging (Blocked if drawing through solid platforms)
         if (canDraw && (Input.GetMouseButton(0) || Input.GetMouseButton(1)) && currentLine != null)
         {
             if (distanceToPlayer <= maxDrawRadiusFromPlayer)
@@ -70,13 +68,11 @@ public class ChalkDrawer : MonoBehaviour
 
                     if (stepDistance >= minPointDistance)
                     {
-                        // Check for solid platforms/walls in the path of the line segment
                         Vector2 direction = (cursorPoint - lastPoint).normalized;
                         RaycastHit2D hit = Physics2D.Raycast(lastPoint, direction, stepDistance, obstacleLayers);
 
                         if (hit.collider != null)
                         {
-                            // Hit an obstacle: snap point to impact location and stop line
                             float hitDistance = Vector2.Distance(lastPoint, hit.point);
 
                             if (currentTotalLength + hitDistance <= maxTotalLineLength)
@@ -90,12 +86,16 @@ public class ChalkDrawer : MonoBehaviour
                         }
                         else
                         {
-                            // Clear path: add point normally
                             if (currentTotalLength + stepDistance <= maxTotalLineLength)
                             {
                                 currentTotalLength += stepDistance;
                                 player.ConsumeMass(drawMassCostPerSecond * Time.deltaTime);
                                 AddPoint(cursorPoint);
+
+                                if (AudioManager.Instance != null)
+                                {
+                                    AudioManager.Instance.PlayLoopingSFX(AudioManager.Instance.drawLineSFX);
+                                }
                             }
                         }
                     }
@@ -103,7 +103,6 @@ public class ChalkDrawer : MonoBehaviour
             }
         }
 
-        // 3. Stop drawing on mouse release or if grounded state breaks
         if ((Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1) || !canDraw) && currentLine != null)
         {
             FinishLine();
@@ -140,6 +139,11 @@ public class ChalkDrawer : MonoBehaviour
     {
         currentLine = null;
         currentCollider = null;
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopLoopingSFX();
+        }
     }
 
     public void ClearAllDrawnLines()
