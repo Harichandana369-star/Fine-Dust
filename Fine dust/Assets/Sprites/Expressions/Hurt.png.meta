@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 478119ca24fe211419be3ee7d733be25
+guid: 980e606136ea40143ab79ff114b2c0fc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8575885065322407881
-    second: smile_Jump_0
+      213: -2048800907179887802
+    second: Hurt_0
   - first:
-      213: 7052157221817074977
-    second: smile_Jump_1
+      213: 490842205202310979
+    second: Hurt_1
   - first:
-      213: -4832263630462844944
-    second: smile_Jump_2
+      213: -3720053754089064719
+    second: Hurt_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -57,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 400
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -132,13 +132,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: smile_Jump_0
+      name: Hurt_0
       rect:
         serializedVersion: 2
-        x: 51
-        y: 295
-        width: 135
-        height: 51
+        x: 50
+        y: 219
+        width: 117
+        height: 127
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,20 +147,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9c7ae19a70aa30770800000000000000
-      internalID: 8575885065322407881
+      spriteID: 6437b001e623193e0800000000000000
+      internalID: -2048800907179887802
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smile_Jump_1
+      name: Hurt_1
       rect:
         serializedVersion: 2
         x: 348
-        y: 270
-        width: 102
-        height: 102
+        y: 223
+        width: 120
+        height: 123
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -169,20 +169,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 125cc9a11ab4ed160800000000000000
-      internalID: 7052157221817074977
+      spriteID: 3476ad19262dfc600800000000000000
+      internalID: 490842205202310979
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smile_Jump_2
+      name: Hurt_2
       rect:
         serializedVersion: 2
-        x: 136
-        y: 106
-        width: 238
-        height: 112
+        x: 146
+        y: 100
+        width: 222
+        height: 84
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -191,8 +191,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0fff83d94d950fcb0800000000000000
-      internalID: -4832263630462844944
+      spriteID: 1f6b92202d6bf5cc0800000000000000
+      internalID: -3720053754089064719
       vertices: []
       indices: 
       edges: []
@@ -211,9 +211,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      smile_Jump_0: 8575885065322407881
-      smile_Jump_1: 7052157221817074977
-      smile_Jump_2: -4832263630462844944
+      Hurt_0: -2048800907179887802
+      Hurt_1: 490842205202310979
+      Hurt_2: -3720053754089064719
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

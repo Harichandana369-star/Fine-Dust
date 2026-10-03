@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 55169cc9de949df4cb88fa17e5ab2d8e
+guid: 85de9da5dd376fe4a9ce099144be24dd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5968101921147752546
-    second: smile_Walk_0
+      213: 4292555644840565022
+    second: exp1_0
   - first:
-      213: -1442533183229836799
-    second: smile_Walk_1
+      213: -423592785574498914
+    second: exp1_1
   - first:
-      213: 4051794313157513156
-    second: smile_Walk_2
+      213: 8038165031013721149
+    second: exp1_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -57,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 400
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -132,13 +132,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: smile_Walk_0
+      name: exp1_0
       rect:
         serializedVersion: 2
         x: 62
-        y: 269
-        width: 102
-        height: 80
+        y: 238
+        width: 100
+        height: 78
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,20 +147,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2609651b315f2d250800000000000000
-      internalID: 5968101921147752546
+      spriteID: e19d155bd98329b30800000000000000
+      internalID: 4292555644840565022
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smile_Walk_1
+      name: exp1_1
       rect:
         serializedVersion: 2
-        x: 345
-        y: 269
-        width: 102
-        height: 80
+        x: 338
+        y: 238
+        width: 101
+        height: 78
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -169,20 +169,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1024fd476b71bfbe0800000000000000
-      internalID: -1442533183229836799
+      spriteID: e9de9661b981f1af0800000000000000
+      internalID: -423592785574498914
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smile_Walk_2
+      name: exp1_2
       rect:
         serializedVersion: 2
-        x: 133
-        y: 102
-        width: 238
-        height: 112
+        x: 140
+        y: 140
+        width: 219
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -191,8 +191,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4cf83b2e57dda3830800000000000000
-      internalID: 4051794313157513156
+      spriteID: d342a87f18c4d8f60800000000000000
+      internalID: 8038165031013721149
       vertices: []
       indices: 
       edges: []
@@ -211,9 +211,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      smile_Walk_0: 5968101921147752546
-      smile_Walk_1: -1442533183229836799
-      smile_Walk_2: 4051794313157513156
+      exp1_0: 4292555644840565022
+      exp1_1: -423592785574498914
+      exp1_2: 8038165031013721149
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
