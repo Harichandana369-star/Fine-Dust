@@ -193,7 +193,10 @@ MonoBehaviour:
   minMass: 5
   currentMass: 100
   autoDecayRate: 2
-  isGrounded: 0
+  isGrounded: 1
+  spriteRenderer: {fileID: 0}
+  fullMassColor: {r: 1, g: 1, b: 1, a: 1}
+  lowMassColor: {r: 1, g: 0.3, b: 0.3, a: 0.5}
 --- !u!114 &1311624934588824960
 MonoBehaviour:
   m_ObjectHideFlags: 0

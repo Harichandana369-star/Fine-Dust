@@ -13,56 +13,54 @@ public class ChalkPlayer : MonoBehaviour
     public float maxMass = 100f;
     public float minMass = 10f;
     public float currentMass = 100f;
+    public float autoDecayRate = 2f; // Chalk slowly wears away over time!
 
     [Header("Grounding State")]
     public bool isGrounded;
 
+    [Header("Visual Mass Feedback")]
+    public SpriteRenderer spriteRenderer;
+    public Color fullMassColor = Color.white;
+    public Color lowMassColor = new Color(1f, 0.3f, 0.3f, 0.5f);
+
     private Rigidbody2D rb;
     private Vector3 initialScale;
-    private PlayerRespawn respawnScript;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        respawnScript = GetComponent<PlayerRespawn>();
+        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+
         initialScale = transform.localScale;
         currentMass = maxMass;
-        UpdateVisualScale();
+        UpdateVisuals();
     }
 
     void Update()
     {
         // 1. Check Ground Status
-        // NEW
         if (groundCheck != null)
         {
-            // 1. Slightly increase radius to 0.3f so feet reliably register on thin line edges
-            Collider2D hitCollider = Physics2D.OverlapCircle(groundCheck.position, 0.3f, groundLayer);
-
-            // 2. Fallback check: If the player stands on a drawn line collider directly
-            if (hitCollider == null)
-            {
-                Collider2D lineHit = Physics2D.OverlapCircle(groundCheck.position, 0.3f);
-                isGrounded = (lineHit != null && lineHit.GetComponent<EdgeCollider2D>() != null);
-            }
-            else
-            {
-                isGrounded = true;
-            }
+            isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.3f, groundLayer);
         }
 
-        // 2. Horizontal Movement & Jump
+        // 2. PASSIVE CHALK DECAY (Shrinks over time / moving / idling)
+        if (currentMass > minMass)
+        {
+            ConsumeMass(autoDecayRate * Time.deltaTime);
+        }
+
+        // 3. Movement & Jump
         float moveInput = Input.GetAxisRaw("Horizontal");
         float massRatio = Mathf.Clamp01(currentMass / maxMass);
-
         float currentSpeed = Mathf.Lerp(lightSpeed, heavySpeed, massRatio);
+
 #if UNITY_6000_0_OR_NEWER
         rb.linearVelocity = new Vector2(moveInput * currentSpeed, rb.linearVelocity.y);
 #else
         rb.velocity = new Vector2(moveInput * currentSpeed, rb.velocity.y);
 #endif
 
-        // Jump logic
         if (isGrounded && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)))
         {
 #if UNITY_6000_0_OR_NEWER
@@ -73,45 +71,38 @@ public class ChalkPlayer : MonoBehaviour
             isGrounded = false;
         }
 
-        // 3. Auto-respawn if mass drops below minMass threshold
-        if (currentMass <= minMass && respawnScript != null)
+        // 4. Respawn check
+        if (currentMass <= minMass)
         {
-            respawnScript.Respawn();
+            PlayerRespawn respawn = GetComponent<PlayerRespawn>();
+            if (respawn != null) respawn.Respawn();
         }
     }
 
     public void ConsumeMass(float amount)
     {
         currentMass = Mathf.Max(minMass, currentMass - amount);
-        UpdateVisualScale();
+        UpdateVisuals();
     }
 
     public void GainMass(float amount)
     {
-        currentMass = Mathf.Min(maxMass, currentMass + amount);
-        UpdateVisualScale();
+        currentMass = Mathf.Min(150f, currentMass + amount);
+        UpdateVisuals();
     }
 
-    private void UpdateVisualScale()
+    private void UpdateVisuals()
     {
-        float massRatio = Mathf.Clamp01(currentMass / maxMass);
-        transform.localScale = new Vector3(
-            initialScale.x * Mathf.Lerp(0.5f, 1.2f, massRatio),
-            initialScale.y * Mathf.Clamp(massRatio, 0.2f, 1f),
-            initialScale.z
-        );
-    }
+        float massRatio = Mathf.Clamp01((currentMass - minMass) / (maxMass - minMass));
 
-    // Called when player respawns / dies
-    public void ResetPlayerStateAndLines()
-    {
-        currentMass = maxMass;
-        UpdateVisualScale();
+        // Scale shrinks smoothly
+        float scaleFactor = Mathf.Clamp(currentMass / 100f, 0.4f, 1.5f);
+        transform.localScale = initialScale * scaleFactor;
 
-        ChalkDrawer drawer = FindAnyObjectByType<ChalkDrawer>();
-        if (drawer != null)
+        // Color shifts from white to red/transparent as mass drains
+        if (spriteRenderer != null)
         {
-            drawer.ClearAllDrawnLines();
+            spriteRenderer.color = Color.Lerp(lowMassColor, fullMassColor, massRatio);
         }
     }
 }
