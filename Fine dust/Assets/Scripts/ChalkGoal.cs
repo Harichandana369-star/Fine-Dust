@@ -21,20 +21,34 @@ public class ChalkGoal : MonoBehaviour
 
     private IEnumerator TransitionToNextLevel(ChalkPlayer player)
     {
-        player.enabled = false; // Freeze controls
+        player.enabled = false; // Freeze player controls
         Debug.Log("Chalk goal reached! Level complete.");
+
+        // Play level complete SFX if assigned
+        if (AudioManager.Instance != null && AudioManager.Instance.plusEnemySFX != null)
+        {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.plusEnemySFX);
+        }
 
         yield return new WaitForSeconds(delayBeforeNextLevel);
 
-        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        // Smoothly fade out and load the next scene
+        if (LevelTransitionManager.Instance != null)
         {
-            SceneManager.LoadScene(nextSceneIndex);
+            LevelTransitionManager.Instance.LoadNextLevel();
         }
         else
         {
-            // Reset to Level 1 if no more scenes in build
-            SceneManager.LoadScene(0);
+            // Fallback direct load if transition manager isn't present
+            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+            {
+                SceneManager.LoadScene(nextSceneIndex);
+            }
+            else
+            {
+                SceneManager.LoadScene(0); // Reset to Main Menu / Level 1
+            }
         }
     }
 }

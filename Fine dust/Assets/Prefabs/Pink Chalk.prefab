@@ -31,7 +31,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8579239540989256159}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8281686745137455415
@@ -153,3 +154,65 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChalkGoal
   delayBeforeNextLevel: 1.2
+--- !u!1001 &6493290840122385816
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8959736261587197257}
+    m_Modifications:
+    - target: {fileID: 3248038119058736199, guid: 9f2edec7ed5aaa54a9a32e604e954f57, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.79269993
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248038119058736199, guid: 9f2edec7ed5aaa54a9a32e604e954f57, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.8506002
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248038119058736199, guid: 9f2edec7ed5aaa54a9a32e604e954f57, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248038119058736199, guid: 9f2edec7ed5aaa54a9a32e604e954f57, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248038119058736199, guid: 9f2edec7ed5aaa54a9a32e604e954f57, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248038119058736199, guid: 9f2edec7ed5aaa54a9a32e604e954f57, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248038119058736199, guid: 9f2edec7ed5aaa54a9a32e604e954f57, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248038119058736199, guid: 9f2edec7ed5aaa54a9a32e604e954f57, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248038119058736199, guid: 9f2edec7ed5aaa54a9a32e604e954f57, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248038119058736199, guid: 9f2edec7ed5aaa54a9a32e604e954f57, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6364691795546060730, guid: 9f2edec7ed5aaa54a9a32e604e954f57, type: 3}
+      propertyPath: m_Name
+      value: Pink Chalk_Light
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9f2edec7ed5aaa54a9a32e604e954f57, type: 3}
+--- !u!4 &8579239540989256159 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3248038119058736199, guid: 9f2edec7ed5aaa54a9a32e604e954f57, type: 3}
+  m_PrefabInstance: {fileID: 6493290840122385816}
+  m_PrefabAsset: {fileID: 0}
