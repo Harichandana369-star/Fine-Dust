@@ -188,6 +188,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fb375e44a8c2904ab7e873d097c2055, type: 3}
+--- !u!114 &565425658 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5913406429781207250, guid: fb043637e9af7d542ad9c548eed762a6, type: 3}
+  m_PrefabInstance: {fileID: 75923260141578123}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &706150753 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7250220246719202645, guid: 03e38942ac0924048ab062f3f13dbfd9, type: 3}
@@ -1611,6 +1622,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1497791391258408146, guid: 389331b61db8c244c84289152a81b833, type: 3}
+      propertyPath: victoryText
+      value: 
+      objectReference: {fileID: 565425658}
     - target: {fileID: 1497791391258408146, guid: 389331b61db8c244c84289152a81b833, type: 3}
       propertyPath: victoryPanel
       value: 
