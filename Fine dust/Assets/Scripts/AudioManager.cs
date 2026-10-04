@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -37,12 +38,36 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        // Subscribe to scene load event
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        // Unsubscribe from scene load event to avoid memory leaks
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     void Start()
+    {
+        PlayBackgroundMusicFromStart();
+    }
+
+    // Called automatically every time ANY scene loads
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        PlayBackgroundMusicFromStart();
+    }
+
+    public void PlayBackgroundMusicFromStart()
     {
         if (backgroundMusic != null && musicSource != null)
         {
             musicSource.clip = backgroundMusic;
             musicSource.loop = true;
+            musicSource.time = 0f; // Reset track time to 0 seconds
             musicSource.Play();
         }
     }
