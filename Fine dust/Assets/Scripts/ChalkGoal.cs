@@ -21,33 +21,35 @@ public class ChalkGoal : MonoBehaviour
 
     private IEnumerator TransitionToNextLevel(ChalkPlayer player)
     {
-        player.enabled = false; // Freeze player controls
+        player.enabled = false;
         Debug.Log("Chalk goal reached! Level complete.");
 
-        // Play level complete SFX if assigned
-        if (AudioManager.Instance != null && AudioManager.Instance.plusEnemySFX != null)
+        // Save level progress!
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex; // Assuming Level 1 = Index 1, Level 2 = Index 2...
+        int savedLevelReached = PlayerPrefs.GetInt("HighestLevelReached", 1);
+
+        if (currentSceneIndex + 1 > savedLevelReached)
         {
-            AudioManager.Instance.PlaySFX(AudioManager.Instance.plusEnemySFX);
+            PlayerPrefs.SetInt("HighestLevelReached", currentSceneIndex + 1);
+            PlayerPrefs.Save(); // Persist to disk
         }
 
         yield return new WaitForSeconds(delayBeforeNextLevel);
 
-        // Smoothly fade out and load the next scene
         if (LevelTransitionManager.Instance != null)
         {
             LevelTransitionManager.Instance.LoadNextLevel();
         }
         else
         {
-            // Fallback direct load if transition manager isn't present
-            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            int nextSceneIndex = currentSceneIndex + 1;
             if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
             {
                 SceneManager.LoadScene(nextSceneIndex);
             }
             else
             {
-                SceneManager.LoadScene(0); // Reset to Main Menu / Level 1
+                SceneManager.LoadScene(0);
             }
         }
     }

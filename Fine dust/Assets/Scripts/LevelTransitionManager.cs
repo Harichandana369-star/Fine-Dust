@@ -10,8 +10,10 @@ public class LevelTransitionManager : MonoBehaviour
     [Header("UI Reference")]
     public Image fadeImage;
 
-    [Header("Transition Settings")]
-    public float fadeDuration = 0.5f;
+    [Header("Transition Timings")]
+    public float fadeOutDuration = 0.6f;  // Time it takes to fade to black
+    public float darkPauseDuration = 1.0f; // Time spent staying completely black between levels
+    public float fadeInDuration = 0.6f;   // Time it takes to fade in to the new level
 
     private void Awake()
     {
@@ -47,21 +49,19 @@ public class LevelTransitionManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Automatically fade in whenever a new scene loads
+        // Automatically fade in when a new scene finishes loading
         if (fadeImage != null)
         {
             StartCoroutine(FadeFromBlack());
         }
     }
 
-    // Call this method from your Goal / Finish line script to switch levels
     public void LoadNextLevel()
     {
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
         StartCoroutine(FadeAndLoadScene(nextSceneIndex));
     }
 
-    // Call this method to load a specific scene by name
     public void LoadSceneByName(string sceneName)
     {
         StartCoroutine(FadeAndLoadSceneByName(sceneName));
@@ -72,10 +72,10 @@ public class LevelTransitionManager : MonoBehaviour
         float timer = 0f;
         Color color = fadeImage.color;
 
-        while (timer < fadeDuration)
+        while (timer < fadeOutDuration)
         {
             timer += Time.deltaTime;
-            color.a = Mathf.Clamp01(timer / fadeDuration);
+            color.a = Mathf.Clamp01(timer / fadeOutDuration);
             fadeImage.color = color;
             yield return null;
         }
@@ -91,10 +91,10 @@ public class LevelTransitionManager : MonoBehaviour
         color.a = 1f;
         fadeImage.color = color;
 
-        while (timer < fadeDuration)
+        while (timer < fadeInDuration)
         {
             timer += Time.deltaTime;
-            color.a = Mathf.Clamp01(1f - (timer / fadeDuration));
+            color.a = Mathf.Clamp01(1f - (timer / fadeInDuration));
             fadeImage.color = color;
             yield return null;
         }
@@ -105,13 +105,27 @@ public class LevelTransitionManager : MonoBehaviour
 
     private IEnumerator FadeAndLoadScene(int sceneIndex)
     {
+        // 1. Fade screen out to black
         yield return StartCoroutine(FadeToBlack());
-        SceneManager.LoadScene(sceneIndex);
+
+        // 2. Pause in complete darkness (Adjust darkPauseDuration in Inspector!)
+        yield return new WaitForSeconds(darkPauseDuration);
+
+        // 3. Load the new level while dark
+        if (sceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(sceneIndex);
+        }
+        else
+        {
+            SceneManager.LoadScene(0); // Reset to Main Menu / Level 1
+        }
     }
 
     private IEnumerator FadeAndLoadSceneByName(string sceneName)
     {
         yield return StartCoroutine(FadeToBlack());
+        yield return new WaitForSeconds(darkPauseDuration);
         SceneManager.LoadScene(sceneName);
     }
 }
