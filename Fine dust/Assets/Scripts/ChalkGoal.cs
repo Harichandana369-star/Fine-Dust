@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class ChalkGoal : MonoBehaviour
 {
-    public float delayBeforeNextLevel = 1.2f;
     private bool isTriggered = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -15,41 +14,51 @@ public class ChalkGoal : MonoBehaviour
         if (player != null)
         {
             isTriggered = true;
-            StartCoroutine(TransitionToNextLevel(player));
+            StartCoroutine(CompleteLevel(player));
         }
     }
 
-    private IEnumerator TransitionToNextLevel(ChalkPlayer player)
+    private IEnumerator CompleteLevel(ChalkPlayer player)
     {
+        // Disable player movement script upon reaching goal
         player.enabled = false;
         Debug.Log("Chalk goal reached! Level complete.");
 
-        // Save level progress!
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex; // Assuming Level 1 = Index 1, Level 2 = Index 2...
+        // Save level progress to PlayerPrefs
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int savedLevelReached = PlayerPrefs.GetInt("HighestLevelReached", 1);
 
         if (currentSceneIndex + 1 > savedLevelReached)
         {
             PlayerPrefs.SetInt("HighestLevelReached", currentSceneIndex + 1);
-            PlayerPrefs.Save(); // Persist to disk
+            PlayerPrefs.Save(); // Persist saved level unlock to disk
         }
 
-        yield return new WaitForSeconds(delayBeforeNextLevel);
+        yield return new WaitForSeconds(0.2f);
 
-        if (LevelTransitionManager.Instance != null)
+        // Show the Victory UI Popup
+        if (VictoryManager.Instance != null)
         {
-            LevelTransitionManager.Instance.LoadNextLevel();
+            VictoryManager.Instance.ShowVictory();
         }
         else
         {
-            int nextSceneIndex = currentSceneIndex + 1;
-            if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+            // Fallback in case VictoryManager is missing from scene
+            if (LevelTransitionManager.Instance != null)
             {
-                SceneManager.LoadScene(nextSceneIndex);
+                LevelTransitionManager.Instance.LoadNextLevel();
             }
             else
             {
-                SceneManager.LoadScene(0);
+                int nextSceneIndex = currentSceneIndex + 1;
+                if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+                {
+                    SceneManager.LoadScene(nextSceneIndex);
+                }
+                else
+                {
+                    SceneManager.LoadScene(0);
+                }
             }
         }
     }
